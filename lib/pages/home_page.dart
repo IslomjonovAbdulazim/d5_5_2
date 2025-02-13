@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'result_page.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -14,8 +16,8 @@ class _HomePageState extends State<HomePage> {
   int weight = 80;
   int height = 180;
   bool gender = true;
-
-
+  double bmi = 80 / (1.8 * 1.8);
+  String indicator = "Normal Weight";
 
   @override
   Widget build(BuildContext context) {
@@ -298,7 +300,71 @@ class _HomePageState extends State<HomePage> {
             ),
 
             /// Button
-
+            Expanded(
+              child: Column(
+                children: [
+                  SizedBox(height: 15),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xff6C63FF),
+                      fixedSize: Size.fromHeight(55),
+                    ),
+                    onPressed: () {
+                      double meter = height / 100;
+                      bmi = weight / (meter * meter);
+                      if (bmi < 18.5) {
+                        indicator = "Underweight";
+                      } else if (bmi < 25) {
+                        indicator = "Normal Weight";
+                      } else if (bmi < 30) {
+                        indicator = "Overweight";
+                      } else if (bmi < 35) {
+                        indicator = "Obesity (Class I)";
+                      } else {
+                        indicator = "Obesity (Class II)";
+                      }
+                      setState(() {});
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => ResultPage(
+                            bmi: bmi,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Center(
+                      child: Text(
+                        "Calculate BMI",
+                        style: GoogleFonts.inter(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    "Your BMI is ${bmi.toStringAsFixed(2)}",
+                    style: GoogleFonts.inter(
+                      color: Color(0xff6C63FF),
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      height: 1,
+                    ),
+                  ),
+                  Text(
+                    "Your body is $indicator",
+                    style: GoogleFonts.inter(
+                      color: Color(0xff6C63FF),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),

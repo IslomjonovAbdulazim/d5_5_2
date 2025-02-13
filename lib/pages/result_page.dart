@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 
 class ResultPage extends StatelessWidget {
-  const ResultPage({super.key});
+  final double bmi;
+
+  const ResultPage({super.key, required this.bmi});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      backgroundColor: Color(0xffF4F3FF),
+      body: Center(
+        child: Text("BMI is ${bmi.toStringAsFixed(2)}"),
+      ),
+    );
   }
 }
