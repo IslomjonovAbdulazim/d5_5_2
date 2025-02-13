@@ -6,7 +6,7 @@ import 'pages/home_page.dart';
 void main() {
   runApp(
     DevicePreview(
-      enabled: false,
+      enabled: true,
       builder: (_) => BMICalculatorApp(),
     ),
   );
